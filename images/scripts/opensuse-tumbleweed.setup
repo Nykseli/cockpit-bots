@@ -142,6 +142,9 @@ mkdir /media
 # Make sure virtinterfaced is enabled
 systemctl enable --now virtinterfaced
 
+# Make sure firewalld is enabled
+systemctl enable --now firewalld
+
 echo root:foobar | chpasswd
 
 # cloud-init is not needed after initial setup and will only slow down boot time
