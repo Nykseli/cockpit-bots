@@ -98,6 +98,8 @@ if [ "${IMAGE%-i386}" != "$IMAGE" ]; then
 fi
 
 zypper dup -y
+
+# Install default kernel for testing PLEASE REMOVE
 # kernel-default has more kernel modules that are required for testing
 zypper remove -y kernel-default-base
 zypper install -y kernel-default
@@ -131,6 +133,14 @@ rm -rf /var/log/audit/
 
 # Make sure firewalld is enabled
 systemctl enable --now firewalld
+
+# Add the media dir as it's needed for a few storage tests
+# TODO: this should go to cockpit-machines!
+#       either fix in tests or add the command to vm.install
+mkdir /media
+
+# Make sure virtinterfaced is enabled
+systemctl enable --now virtinterfaced
 
 echo root:foobar | chpasswd
 
