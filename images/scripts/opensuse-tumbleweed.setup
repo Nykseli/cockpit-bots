@@ -49,6 +49,7 @@ qemu-kvm \
 realmd \
 tuned \
 virt-install \
+virtiofsd \
 udisks2 \
 libudisks2-0_lvm2 \
 "
@@ -136,6 +137,9 @@ mkdir /media
 
 # Make sure virtinterfaced is enabled
 systemctl enable --now virtinterfaced
+
+# Make sure firewalld is enabled
+systemctl enable --now firewalld
 
 echo root:foobar | chpasswd
 
