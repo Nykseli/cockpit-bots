@@ -26,6 +26,8 @@ glibc-locale \
 glib-networking \
 json-glib \
 kexec-tools \
+krb5 \
+libssh2-1 \
 libvirt-daemon-config-network \
 libvirt-daemon-driver-qemu \
 libvirt-daemon-driver-network \
@@ -51,17 +53,20 @@ virt-install \
 virtiofsd \
 udisks2 \
 libudisks2-0_lvm2 \
+setroubleshoot-server \
 "
 
 TEST_PACKAGES="\
 acl \
 ansible-core \
+bind-utils \
 clevis-luks \
 cryptsetup \
 firewalld \
 gdb \
 gettext \
 gvfs \
+krb5-client \
 libvirt-daemon-driver-storage-iscsi \
 libvirt-daemon-driver-storage-iscsi-direct \
 libvirt-daemon-driver-storage-logical \
