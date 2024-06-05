@@ -21,6 +21,7 @@ printf 'dictcheck = 0\nminlen = 6\n' >> /etc/security/pwquality.conf
 COCKPIT_DEPS="\
 criu \
 libcriu2 \
+crypto-policies-scripts \
 device-mapper \
 glibc-locale \
 glib-networking \
@@ -41,6 +42,8 @@ openssl \
 PackageKit \
 pcp \
 pcp-devel \
+pkexec \
+polkit \
 python3-pip \
 qemu-block-curl \
 qemu-chardev-spice \
@@ -53,6 +56,7 @@ virt-install \
 virtiofsd \
 udisks2 \
 libudisks2-0_lvm2 \
+libudisks2-0_btrfs \
 setroubleshoot-server \
 "
 
@@ -74,6 +78,7 @@ libxml2-tools \
 ltrace \
 nginx \
 nfs-kernel-server \
+patterns-base-fips \
 podman \
 redis \
 socat \
@@ -84,6 +89,9 @@ bzip2 \
 rpm-build \
 rpm-config-SUSE \
 psmisc \
+ntfs-3g \
+ntfsprogs \
+multipath-tools \
 "
 
 NETWORK_PACKAGES="\
@@ -109,8 +117,7 @@ zypper dup -y
 zypper remove -y kernel-default-base
 zypper install -y kernel-default
 
-zypper install -y $TEST_PACKAGES $COCKPIT_DEPS $BUILD_PACKAGES $NETWORK_PACKAGES
-
+zypper -n install -y $TEST_PACKAGES $COCKPIT_DEPS $BUILD_PACKAGES $NETWORK_PACKAGES
 
 # Pre-install distribution cockpit packages, for testing cockpit extensions offline and for convenient interactive debugging
 zypper install -y cockpit
@@ -131,6 +138,9 @@ rm -r /etc/ssh/sshd_config
 echo 'UseDNS no' >> /usr/etc/ssh/sshd_config
 # Cloud init sets 'PasswordAuthentication yes'. Make sure it's replicated in tumbleweed
 echo 'PasswordAuthentication yes' >> /usr/etc/ssh/sshd_config
+
+# Setup user friendly names for multipath
+printf 'defaults {\nuser_friendly_names yes\n}\n' > /etc/multipath.conf
 
 # Audit events to the journal
 rm -f '/etc/systemd/system/multi-user.target.wants/auditd.service'
