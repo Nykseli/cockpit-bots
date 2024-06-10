@@ -28,6 +28,7 @@ glib-networking \
 json-glib \
 kexec-tools \
 krb5 \
+lastlog2 \
 libssh2-1 \
 libvirt-daemon-config-network \
 libvirt-daemon-driver-qemu \
@@ -58,6 +59,7 @@ udisks2 \
 libudisks2-0_lvm2 \
 libudisks2-0_btrfs \
 setroubleshoot-server \
+wtmpdb \
 "
 
 TEST_PACKAGES="\
