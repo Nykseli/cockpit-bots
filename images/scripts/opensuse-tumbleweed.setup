@@ -94,6 +94,7 @@ psmisc \
 ntfs-3g \
 ntfsprogs \
 multipath-tools \
+systemd-coredump \
 "
 
 NETWORK_PACKAGES="\
@@ -113,6 +114,11 @@ if [ "${IMAGE%-i386}" != "$IMAGE" ]; then
 fi
 
 zypper dup -y
+
+# cloud-init setups the wheel group incorrectly so we need to recreate it
+groupdel wheel
+zypper install -y system-group-wheel
+sudo usermod -a -G wheel admin
 
 # Install default kernel for testing PLEASE REMOVE
 # kernel-default has more kernel modules that are required for testing
