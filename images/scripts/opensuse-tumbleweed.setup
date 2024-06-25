@@ -67,6 +67,7 @@ TEST_PACKAGES="\
 acl \
 ansible-core \
 bind-utils \
+certmonger \
 clevis-luks \
 cryptsetup \
 firewalld \
