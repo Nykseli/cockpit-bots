@@ -37,7 +37,7 @@ echo "$spec" | rpmspec -D "$OS_VER_NO_VARIANT" -D 'version 0' -D 'enable_old_bri
 # - nodejs for starter-kit and other projects which rebuild webpack during RPM build
 case "$OS_VER" in
     *suse*)
-        EXTRA_DEPS="appstream-glib rpmlint gettext-runtime desktop-file-utils nodejs-default"
+        EXTRA_DEPS="appstream-glib rpmlint gettext-runtime desktop-file-utils nodejs-default system-group-wheel"
         ;;
     rhel*10|centos*10)
         # no rpmlint in RHEL 10: https://pkgs.devel.redhat.com/cgit/rpms/rpmlint/commit/?h=rhel-10-main&id=9a9efcbfd844
