@@ -145,6 +145,18 @@ useradd -c Builder -G mock builder
 
 su builder -c "sudo mock --verbose -i $(/var/lib/testvm/build-deps.sh "${ID} ${VERSION_ID}")"
 
+# Setup redis
+sudo cp /etc/redis/default.conf.example /etc/redis/redis.conf
+sudo chown redis:redis /etc/redis/redis.conf
+
+mkdir -p /etc/systemd/system/redis.target.d
+cat > /etc/systemd/system/redis.target.d/70-redis-targets.conf <<EOF
+[Unit]
+Wants=redis@redis.service
+EOF
+
+systemctl enable --now redis.target
+
 # Cloud init creates sshd_config to a wrong path so it needs to be removed
 rm -r /etc/ssh/sshd_config
 # Prevent SSH from hanging for a long time when no external network access
