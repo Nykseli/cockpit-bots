@@ -96,11 +96,15 @@ ntfs-3g \
 ntfsprogs \
 multipath-tools \
 systemd-coredump \
+kdump \
 "
 
 NETWORK_PACKAGES="\
 sssd \
 sssd-dbus \
+sssd-proxy \
+sssd-tools \
+sssd-ipa \
 "
 
 # avoid NM-wait-online hanging on disconnected interfaces
