@@ -105,6 +105,7 @@ sssd-dbus \
 sssd-proxy \
 sssd-tools \
 sssd-ipa \
+wireguard-tools \
 "
 
 # avoid NM-wait-online hanging on disconnected interfaces
