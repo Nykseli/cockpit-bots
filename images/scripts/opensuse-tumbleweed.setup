@@ -83,7 +83,7 @@ nginx \
 nfs-kernel-server \
 patterns-base-fips \
 podman \
-redis \
+valkey \
 socat \
 strace \
 targetcli \
@@ -145,17 +145,17 @@ useradd -c Builder -G mock builder
 
 su builder -c "sudo mock --verbose -i $(/var/lib/testvm/build-deps.sh "${ID} ${VERSION_ID}")"
 
-# Setup redis
-sudo cp /etc/redis/default.conf.example /etc/redis/redis.conf
-sudo chown redis:redis /etc/redis/redis.conf
+# Setup valkey
+sudo cp /etc/valkey/default.conf.example /etc/valkey/valkey.conf
+sudo chown valkey:valkey /etc/valkey/valkey.conf
 
-mkdir -p /etc/systemd/system/redis.target.d
-cat > /etc/systemd/system/redis.target.d/70-redis-targets.conf <<EOF
+mkdir -p /etc/systemd/system/valkey.target.d
+cat > /etc/systemd/system/valkey.target.d/70-valkey-targets.conf <<EOF
 [Unit]
-Wants=redis@redis.service
+Wants=valkey@valkey.service
 EOF
 
-systemctl enable --now redis.target
+systemctl enable --now valkey.target
 
 # Cloud init creates sshd_config to a wrong path so it needs to be removed
 rm -r /etc/ssh/sshd_config
