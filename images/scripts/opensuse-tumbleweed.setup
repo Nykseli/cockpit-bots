@@ -112,6 +112,9 @@ wireguard-tools \
 mkdir -p /etc/NetworkManager/conf.d/
 printf '[main]\nno-auto-default=*\n' > /etc/NetworkManager/conf.d/noauto.conf
 
+# use unpredictable network interface names
+ln -s /dev/null /etc/systemd/network/99-default.link
+
 # our cloud-init.iso does not set up the host name
 echo "127.0.1.1 $(hostname)" >> /etc/hosts
 
