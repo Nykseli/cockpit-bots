@@ -42,10 +42,10 @@ libvirt-dbus \
 openssl \
 PackageKit \
 pcp \
-pcp-devel \
 pkexec \
 polkit \
 python3-pip \
+python3-pcp \
 qemu-block-curl \
 qemu-chardev-spice \
 qemu-hw-usb-host \
