@@ -410,6 +410,8 @@ class VirtMachine(Machine):
                 '/usr/share/ovmf/OVMF.fd',
                 # path for Arch
                 '/usr/share/edk2/x64/OVMF.4m.fd',
+                # path for openSUSE Tumbleweed
+                '/usr/share/qemu/ovmf-x86_64-4m.bin',
             ]
 
             for path in candidates:

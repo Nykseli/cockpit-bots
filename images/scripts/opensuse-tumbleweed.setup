@@ -123,6 +123,14 @@ fi
 
 zypper dup -y
 
+# systemd-boot is the default bootloader on (U)EFI systems
+if [[ "$IMAGE" == *"-efi" ]]; then
+    update-bootloader --loader systemd-boot
+    zypper in -y systemd-boot sdbootutil
+    update-bootloader
+    bootctl --make-machine-id-directory=yes install
+fi
+
 # HACK: There are a number of kernel modules needed for testing, for
 # instance scsi_debug which is needed for most if not all of the disk
 # based tests. Since the cloud image ships a slimmed down set of modules
@@ -167,9 +175,16 @@ echo root:foobar | chpasswd
 zypper remove -y cloud-init
 
 # Display the boot messages for easier debugging
-echo 'GRUB_CMDLINE_LINUX_DEFAULT=""' >> /etc/default/grub
-echo 'GRUB_CMDLINE_LINUX="no_timer_check net.ifnames=0 console=tty1 console=ttyS0,115200n8"' >> /etc/default/grub
-grub2-mkconfig -o /boot/grub2/grub.cfg
+if [[ "$IMAGE" == *"-efi" ]]; then
+    for file in `find /boot/efi/loader/entries -name '*.conf'`; do
+        # sed -i 's/console=tty0/console=tty1/' "$file"
+        sed -i 's/console=ttyS0,115200 console=tty0/console=tty1 console=ttyS0,115200/' "$file"
+    done
+else
+    echo 'GRUB_CMDLINE_LINUX_DEFAULT=""' >> /etc/default/grub
+    echo 'GRUB_CMDLINE_LINUX="no_timer_check net.ifnames=0 console=tty1 console=ttyS0,115200n8"' >> /etc/default/grub
+    grub2-mkconfig -o /boot/grub2/grub.cfg
+fi
 
 # https://github.com/openssh/openssh-portable/pull/388
 # https://github.com/openssh/openssh-portable/pull/593
