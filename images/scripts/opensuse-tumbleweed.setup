@@ -209,8 +209,9 @@ zypper remove -y cloud-init
 # Display the boot messages for easier debugging
 if [[ "$IMAGE" == *"-efi" ]]; then
     for file in `find /boot/efi/loader/entries -name '*.conf'`; do
-        # sed -i 's/console=tty0/console=tty1/' "$file"
-        sed -i 's/console=ttyS0,115200 console=tty0/console=tty1 console=ttyS0,115200/' "$file"
+        sed -i 's/quiet systemd.show_status=1//' "$file"
+        # non-efi image doesn't have selinux enabled either
+        sed -i 's/security=selinux selinux=1//' "$file"
     done
 else
     echo 'GRUB_CMDLINE_LINUX_DEFAULT=""' >> /etc/default/grub
